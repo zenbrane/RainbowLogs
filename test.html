@@ -1,88 +1,107 @@
 <html>
     <head>
-        <script type="text/javascript" src="colorconsole.js"></script>
+        <script type="text/javascript" src="colorlogger.js"></script>
         <script type="text/javascript">
-            window.cc = window.colorconsole;
+            window.cl = window.colorlogger;
 
-            cc.logLevel = 0;
-            console.log("show all");
-
-            cc.trace("trace");
-            cc.debug("debug");
-            cc.info("info");
-            cc.warn("warn");
-            cc.error("error");
-            cc.fatal("fatal");
-
-            cc.logLevel = 1;
-            console.log("show trace and above");
-
-            cc.trace("trace");
-            cc.debug("debug");
-            cc.info("info");
-            cc.warn("warn");
-            cc.error("error");
-            cc.fatal("fatal");
-
-            cc.logLevel = 2;
-            console.log("show debug and above");
-
-            cc.trace("trace");
-            cc.debug("debug");
-            cc.info("info");
-            cc.warn("warn");
-            cc.error("error");
-            cc.fatal("fatal");
-
-            cc.logLevel = 3;
-            console.log("show info and above");
-
-            cc.trace("trace");
-            cc.debug("debug");
-            cc.info("info");
-            cc.warn("warn");
-            cc.error("error");
-            cc.fatal("fatal");
-
-            cc.logLevel = 4;
-            console.log("show warn and above");
-
-            cc.trace("trace");
-            cc.debug("debug");
-            cc.info("info");
-            cc.warn("warn");
-            cc.error("error");
-            cc.fatal("fatal");
-
-            cc.logLevel = 5;
-            console.log("show error and above");
-
-            cc.trace("trace");
-            cc.debug("debug");
-            cc.info("info");
-            cc.warn("warn");
-            cc.error("error");
-            cc.fatal("fatal");
-
-            cc.logLevel = 6;
-            console.log("show fatal");
-
-            cc.trace("trace");
-            cc.debug("debug");
-            cc.info("info");
-            cc.warn("warn");
-            cc.error("error");
-            cc.fatal("fatal");
-
-            cc.logLevel = 7;
+            cl.logLevel = 7;
             console.log("show none");
 
-            cc.trace("trace");
-            cc.debug("debug");
-            cc.info("info");
-            cc.warn("warn");
-            cc.error("error");
-            cc.fatal("fatal");
+            cl.trace("trace");
+            cl.debug("debug");
+            cl.info("info");
+            cl.warn("warn");
+            cl.error("error");
+            cl.fatal("fatal");
+
+            cl.logLevel = 6;
+            console.log("show fatal");
+
+            cl.trace("trace");
+            cl.debug("debug");
+            cl.info("info");
+            cl.warn("warn");
+            cl.error("error");
+            cl.fatal("fatal");
+
+            cl.logLevel = 5;
+            console.log("show error and above");
+
+            cl.trace("trace");
+            cl.debug("debug");
+            cl.info("info");
+            cl.warn("warn");
+            cl.error("error");
+            cl.fatal("fatal");
+
+            cl.logLevel = 4;
+            console.log("show warn and above");
+
+            cl.trace("trace");
+            cl.debug("debug");
+            cl.info("info");
+            cl.warn("warn");
+            cl.error("error");
+            cl.fatal("fatal");
+
+            cl.logLevel = 3;
+            console.log("show info and above");
+
+            cl.trace("trace");
+            cl.debug("debug");
+            cl.info("info");
+            cl.warn("warn");
+            cl.error("error");
+            cl.fatal("fatal");
+
+            cl.logLevel = 2;
+            console.log("show debug and above");
+
+            cl.trace("trace");
+            cl.debug("debug");
+            cl.info("info");
+            cl.warn("warn");
+            cl.error("error");
+            cl.fatal("fatal");
+
+            cl.logLevel = 1;
+            console.log("show trace and above");
+
+            cl.trace("trace");
+            cl.debug("debug");
+            cl.info("info");
+            cl.warn("warn");
+            cl.error("error");
+            cl.fatal("fatal");
+
+            cl.logLevel = 0;
+            console.log("show all");
+
+            cl.trace("trace");
+            cl.debug("debug");
+            cl.info("info");
+            cl.warn("warn");
+            cl.error("error");
+            cl.fatal("fatal");
+
+            
+            window.fooA = function(msg) {
+                cl.trace("functon A");
+                cl.info(msg);
+            }
+
+            window.fooB = function(msg) {
+                cl.trace("function B");
+                fooA(msg);
+            }
+
+            window.fooC = function(msg) {
+                cl.trace("Function C");
+                fooB(msg);
+            }
+
+            fooC("Something happens.");
+
         </script>
     </head>
     <body>

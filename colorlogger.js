@@ -1,5 +1,11 @@
 (function(){
-    window.colorconsole = new function() {
+    window.colorlogger = new function() {
+
+        this.getPosition = function(string, subString, index) {
+            return string.split(subString, index).join(subString).length;
+        }
+
+        this.withStackTrace = true;
 
         this.Colors = {
             RED: "red",
@@ -38,11 +44,24 @@
             INFO: this.Colors.GREEN,
             WARN: this.Colors.ORANGE,
             ERROR: this.Colors.RED,
-            FATAL: this.Colors.BLACK
+            FATAL: this.Colors.WHITE
         };
 
         this.print = function(msg, color, background, fontWeight) {
+
+            // create color string
             c = "background: "+background+"; color: "+color+"; font-weight: "+fontWeight+";";
+
+
+            // add the stack trace
+            if (this.withStackTrace) {
+                // trim the stack trace
+                // the first three lines of the stack are from this library, and is uninformative
+                var err = new Error();
+                var n = cl.getPosition(err.stack, "\n", 4);
+                msg = msg + "\n Caused by:"+err.stack.substring(n)
+            }
+
             console.log('%c %s', c, msg);
         }
 
@@ -70,7 +89,7 @@
 
             // print only if level is sufficient
             if (level >= this.logLevel) {
-                this.print(msg, color, background, fontWeight);
+                this.print(msg+" ", color, background, fontWeight);
             }
         };
 
@@ -95,7 +114,7 @@
         };
 
         this.fatal = function(msg) {
-            this.log("FATAL "+msg, this.levelToColor.FATAL, null, this.FontWeights.BOLD, this.LogLevels.FATAL);
+            this.log("FATAL "+msg, this.levelToColor.FATAL, this.Colors.BLACK, this.FontWeights.BOLD, this.LogLevels.FATAL);
         };
     }();
 })();
