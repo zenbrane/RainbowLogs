@@ -2,89 +2,57 @@
     <head>
         <script type="text/javascript" src="colorlogger.js"></script>
         <script type="text/javascript">
+
+            // alias
             window.cl = window.colorlogger;
+            cl.withStackTrace = false;
 
-            cl.logLevel = 7;
+            // Example: log levels
+            var printEachLogLevel = function() {        
+                cl.trace("trace");
+                cl.debug("debug");
+                cl.info("info");
+                cl.warn("warn");
+                cl.error("error");
+                cl.fatal("fatal");
+            }
+
+            cl.logLevel = cl.LogLevels.OFF;
             console.log("show none");
+            printEachLogLevel();
 
-            cl.trace("trace");
-            cl.debug("debug");
-            cl.info("info");
-            cl.warn("warn");
-            cl.error("error");
-            cl.fatal("fatal");
-
-            cl.logLevel = 6;
+            cl.logLevel = cl.LogLevels.FATAL;
             console.log("show fatal");
+            printEachLogLevel();
 
-            cl.trace("trace");
-            cl.debug("debug");
-            cl.info("info");
-            cl.warn("warn");
-            cl.error("error");
-            cl.fatal("fatal");
-
-            cl.logLevel = 5;
+            cl.logLevel = cl.LogLevels.ERROR;
             console.log("show error and above");
+            printEachLogLevel();
 
-            cl.trace("trace");
-            cl.debug("debug");
-            cl.info("info");
-            cl.warn("warn");
-            cl.error("error");
-            cl.fatal("fatal");
-
-            cl.logLevel = 4;
+            cl.logLevel = cl.LogLevels.WARN;
             console.log("show warn and above");
+            printEachLogLevel();
 
-            cl.trace("trace");
-            cl.debug("debug");
-            cl.info("info");
-            cl.warn("warn");
-            cl.error("error");
-            cl.fatal("fatal");
-
-            cl.logLevel = 3;
+            cl.logLevel = cl.LogLevels.INFO;
             console.log("show info and above");
+            printEachLogLevel();
 
-            cl.trace("trace");
-            cl.debug("debug");
-            cl.info("info");
-            cl.warn("warn");
-            cl.error("error");
-            cl.fatal("fatal");
-
-            cl.logLevel = 2;
+            cl.logLevel = cl.LogLevels.DEBUG;
             console.log("show debug and above");
+            printEachLogLevel();
 
-            cl.trace("trace");
-            cl.debug("debug");
-            cl.info("info");
-            cl.warn("warn");
-            cl.error("error");
-            cl.fatal("fatal");
-
-            cl.logLevel = 1;
+            cl.logLevel = cl.LogLevels.TRACE;
             console.log("show trace and above");
+            printEachLogLevel();
 
-            cl.trace("trace");
-            cl.debug("debug");
-            cl.info("info");
-            cl.warn("warn");
-            cl.error("error");
-            cl.fatal("fatal");
-
-            cl.logLevel = 0;
+            cl.logLevel = cl.LogLevels.ALL;
             console.log("show all");
-
-            cl.trace("trace");
-            cl.debug("debug");
-            cl.info("info");
-            cl.warn("warn");
-            cl.error("error");
-            cl.fatal("fatal");
+            printEachLogLevel();
 
             
+            // Example: stack trace
+            cl.withStackTrace = true;
+
             window.fooA = function(msg) {
                 cl.trace("functon A");
                 cl.info(msg);
@@ -101,6 +69,23 @@
             }
 
             fooC("Something happens.");
+
+
+            // Example: stack depth
+            cl.maxStackDepth = 2;
+            
+            window.recursiveFoo = function(n) {
+                cl.trace("n: "+n);
+
+                if (n === 0) {
+                    cl.debug("n: 0, end recursion")
+                    return;
+                }
+
+                recursiveFoo(--n);
+            }
+
+            recursiveFoo(10);
 
         </script>
     </head>
