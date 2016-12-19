@@ -6,6 +6,7 @@
         }
 
         this.withStackTrace = true;
+        this.maxStackDepth = 10;
 
         this.Colors = {
             RED: "red",
@@ -58,8 +59,10 @@
                 // trim the stack trace
                 // the first three lines of the stack are from this library, and is uninformative
                 var err = new Error();
-                var n = cl.getPosition(err.stack, "\n", 4);
-                msg = msg + "\n Caused by:"+err.stack.substring(n)
+                var start = cl.getPosition(err.stack, "\n", 4);
+                var end = cl.getPosition(err.stack, "\n", cl.maxStackDepth + 4);
+                var stack = err.stack.substring(start, end);
+                msg = msg + "\n Cause:"+stack;
             }
 
             console.log('%c %s', c, msg);
