@@ -1,2 +1,2 @@
-# color-logger
+# RainbowLogs
 Colorized logger for JS console.
