@@ -1,3 +1,6 @@
+/*
+ * Author: Tai H. Nguyen
+ */
 (function(){
 
     window.RainbowLogs =  new (function() {
