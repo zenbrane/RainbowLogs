@@ -5,71 +5,71 @@
             integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
             crossorigin="anonymous">
         </script>
-        <script type="text/javascript" src="colorlogger.js"></script>
+        <script type="text/javascript" src="RainbowLogs.js"></script>
         <script type="text/javascript">
 
-            // alias
-            window.cl = window.colorlogger;
-            cl.withStackTrace = false;
+            // instantiate logger
+            var rbl = new RainbowLogs.Logger();
+            rbl.hideStackTrace();
 
             // Example: log levels
             var printEachLogLevel = function() {        
-                cl.trace("trace");
-                cl.debug("debug");
-                cl.info("info");
-                cl.warn("warn");
-                cl.error("error");
-                cl.fatal("fatal");
+                rbl.trace("trace");
+                rbl.debug("debug");
+                rbl.info("info");
+                rbl.warn("warn");
+                rbl.error("error");
+                rbl.fatal("fatal");
             }
 
-            cl.logLevel = cl.LogLevels.OFF;
+            rbl.setLogLevelOff();
             console.log("show none");
             printEachLogLevel();
 
-            cl.logLevel = cl.LogLevels.FATAL;
+            rbl.setLogLevelFatal();
             console.log("show fatal");
             printEachLogLevel();
 
-            cl.logLevel = cl.LogLevels.ERROR;
+            rbl.setLogLevelError();
             console.log("show error and above");
             printEachLogLevel();
 
-            cl.logLevel = cl.LogLevels.WARN;
+            rbl.setLogLevelWarn();
             console.log("show warn and above");
             printEachLogLevel();
 
-            cl.logLevel = cl.LogLevels.INFO;
+            rbl.setLogLevelInfo();
             console.log("show info and above");
             printEachLogLevel();
 
-            cl.logLevel = cl.LogLevels.DEBUG;
+            rbl.setLogLevelDebug();
             console.log("show debug and above");
             printEachLogLevel();
 
-            cl.logLevel = cl.LogLevels.TRACE;
+            rbl.setLogLevelTrace();
             console.log("show trace and above");
             printEachLogLevel();
 
-            cl.logLevel = cl.LogLevels.ALL;
+            rbl.setLogLevelAll();
             console.log("show all");
             printEachLogLevel();
 
             
             // Example: stack trace
-            cl.withStackTrace = true;
+            rbl.showStackTrace();
 
             window.fooA = function(msg) {
-                cl.trace("functon A");
-                cl.info(msg);
+                rbl.trace("functon A");
+                rbl.info(msg);
             }
 
             window.fooB = function(msg) {
-                cl.trace("function B");
+                rbl.trace("function B");
                 fooA(msg);
             }
 
             window.fooC = function(msg) {
-                cl.trace("Function C");
+                rbl.trace("Function C");
                 fooB(msg);
             }
 
@@ -77,13 +77,13 @@
 
 
             // Example: stack depth
-            cl.maxStackDepth = 2;
+            rbl.setMaxStackDepth(2);
 
             window.recursiveFoo = function(n) {
-                cl.trace("n: "+n);
+                rbl.trace("n: "+n);
 
                 if (n === 0) {
-                    cl.debug("n: 0, end recursion")
+                    rbl.debug("n: 0, end recursion")
                     return;
                 }
 
@@ -94,50 +94,48 @@
 
 
             // Example: live division
-            cl.withStackTrace = false;
+            rbl.withStackTrace = false;
 
             var getNumerator = function() {
-                cl.trace("getNumerator()");
+                rbl.trace("getNumerator()");
                 
                 var input = $('[name="numerator"]').val();
                 if (!$.isNumeric(input)) {
-                    cl.error('"' + input + '" is not a number');
+                    rbl.error('"' + input + '" is not a number');
                     return 0;
                 }
                 return Number(input);
             }
 
-
-            // Example: live division
             var getDenominator = function() {
-                cl.trace("getDenominator()");
+                rbl.trace("getDenominator()");
                 
                 var input = $('[name="denominator"]').val();
                 if (!$.isNumeric(input)) {
-                    cl.error('"' + input + '" is not a number');
+                    rbl.error('"' + input + '" is not a number');
                     return 0;
                 }
                 return Number(input);
             }
 
             var doDivision = function() {
-                cl.trace("doDivision()");
+                rbl.trace("doDivision()");
 
                 var numerator = getNumerator();
-                cl.debug("Numerator: " + numerator);
+                rbl.debug("Numerator: " + numerator);
 
                 var denominator = getDenominator();
-                cl.debug("Denominator: " + denominator);
+                rbl.debug("Denominator: " + denominator);
 
                 if (denominator === 0) {
-                    cl.error("division by zero");
-                    cl.debug("setting result to NaN");
+                    rbl.error("division by zero");
+                    rbl.debug("setting result to NaN");
                     $('[name="result"]').html("NaN");
                 } else {
-                    cl.info("dividing " + numerator + " by " + denominator);
+                    rbl.info("dividing " + numerator + " by " + denominator);
                     var result = numerator/denominator;
 
-                    cl.debug("setting result to " + result)
+                    rbl.debug("setting result to " + result)
                     $('[name="result"]').html(numerator/denominator);
                 }
             }
