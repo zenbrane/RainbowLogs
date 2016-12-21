@@ -3,7 +3,7 @@
  */
 (function(){
 
-    window.RainbowLogs =  new (function() {
+    window.RainbowLogs =  new function() {
 
         this.LogLevels = {
             ALL: 0,
@@ -14,7 +14,7 @@
             ERROR: 5,
             FATAL: 6,
             NONE: 7,
-            OFF: 7
+            OFF: 7 // alias for NONE
         };
 
         this.Colors = {
@@ -180,5 +180,5 @@
         };
 
         console.log("RainbowLogs initialized.");
-    })();
+    };
 })();
