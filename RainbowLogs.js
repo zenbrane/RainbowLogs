@@ -33,6 +33,11 @@
             BOLD: 900
         };
 
+        // lines to trim from stack trace
+        // first line is always "Error\n"
+        // second line is from this library, uninformative
+        this.LINES_TO_TRIM = 2;
+
         this.getPosition = function(string, subString, index) {
             return string.split(subString, index).join(subString).length;
         };
@@ -61,7 +66,7 @@
             };
         };
 
-        this.Logger.prototype.print = function(msg, color, background, fontWeight) {
+        this.Logger.prototype.print = function(err, msg, color, background, fontWeight) {
 
             // create color string
             c = "background: "+background+"; color: "+color+"; font-weight: "+fontWeight+";";
@@ -69,10 +74,8 @@
             // add the stack trace
             if (this.withStackTrace) {
                 // trim the stack trace
-                // the first three lines of the stack are from this library, and is uninformative
-                var err = new Error();
-                var start = RainbowLogs.getPosition(err.stack, "\n", 4);
-                var end = RainbowLogs.getPosition(err.stack, "\n", this.maxStackDepth + 4);
+                var start = RainbowLogs.getPosition(err.stack, "\n", RainbowLogs.LINES_TO_TRIM);
+                var end = RainbowLogs.getPosition(err.stack, "\n", this.maxStackDepth + RainbowLogs.LINES_TO_TRIM);
                 var stack = err.stack.substring(start, end);
                 msg = msg + "\n Cause:"+stack;
             }
@@ -80,7 +83,7 @@
             console.log('%c %s', c, msg);
         };
         
-        this.Logger.prototype.log = function(msg, color, background, fontWeight, level) {
+        this.Logger.prototype.log = function(err, msg, color, background, fontWeight, level) {
 
             // default color to black
             if (typeof color === 'undefined' || color === null) {
@@ -104,8 +107,45 @@
 
             // print only if level is sufficient
             if (level >= this.logLevel) {
-                this.print(msg+" ", color, background, fontWeight);
+                msg = msg + " " // padding, aesthetic
+                this.print(err, msg, color, background, fontWeight);
             }
+        };
+
+        this.Logger.prototype.trace = function(msg) {
+            var err = new Error();
+            msg = "TRACE " + msg;
+            this.log(err, msg, this.levelToColor.TRACE, null, null, RainbowLogs.LogLevels.TRACE);
+        };
+
+        this.Logger.prototype.debug = function(msg) {
+            var err = new Error();
+            msg = "DEBUG " + msg;
+            this.log(err, msg, this.levelToColor.DEBUG, null, null, RainbowLogs.LogLevels.DEBUG);
+        };
+
+        this.Logger.prototype.info = function(msg) {
+            var err = new Error();
+            msg = "INFO " + msg;
+            this.log(err, msg, this.levelToColor.INFO, null, null, RainbowLogs.LogLevels.INFO);
+        };
+
+        this.Logger.prototype.warn = function(msg) {
+            var err = new Error();
+            msg = "WARN " + msg;
+            this.log(err, msg, this.levelToColor.WARN, null, null, RainbowLogs.LogLevels.WARN);
+        };
+
+        this.Logger.prototype.error = function(msg) {
+            var err = new Error();
+            msg = "ERROR " + msg;
+            this.log(err, msg, this.levelToColor.ERROR, null, null, RainbowLogs.LogLevels.ERROR);
+        };
+
+        this.Logger.prototype.fatal = function(msg) {
+            var err = new Error();
+            msg = "FATAL " + msg;
+            this.log(err, msg, this.levelToColor.FATAL, RainbowLogs.Colors.BLACK, RainbowLogs.FontWeights.BOLD, RainbowLogs.LogLevels.FATAL);
         };
 
         this.Logger.prototype.setLogLevelAll = function() {
@@ -142,29 +182,6 @@
 
         this.Logger.prototype.setLogLevelOff = function() {
             this.logLevel = RainbowLogs.LogLevels.OFF;
-        };
-        this.Logger.prototype.trace = function(msg) {
-            this.log("TRACE "+msg, this.levelToColor.TRACE, null, null, RainbowLogs.LogLevels.TRACE);
-        };
-
-        this.Logger.prototype.debug = function(msg) {
-            this.log("DEBUG "+msg, this.levelToColor.DEBUG, null, null, RainbowLogs.LogLevels.DEBUG);
-        };
-
-        this.Logger.prototype.info = function(msg) {
-            this.log("INFO "+msg, this.levelToColor.INFO, null, null, RainbowLogs.LogLevels.INFO);
-        };
-
-        this.Logger.prototype.warn = function(msg) {
-            this.log("WARN "+msg, this.levelToColor.WARN, null, null, RainbowLogs.LogLevels.WARN);
-        };
-
-        this.Logger.prototype.error = function(msg) {
-            this.log("ERROR "+msg, this.levelToColor.ERROR, null, null, RainbowLogs.LogLevels.ERROR);
-        };
-
-        this.Logger.prototype.fatal = function(msg) {
-            this.log("FATAL "+msg, this.levelToColor.FATAL, RainbowLogs.Colors.BLACK, RainbowLogs.FontWeights.BOLD, RainbowLogs.LogLevels.FATAL);
         };
 
         this.Logger.prototype.showStackTrace = function() {
