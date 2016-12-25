@@ -56,6 +56,7 @@
 
             
             // Example: stack trace
+            console.log("show stack trace");
             rbl.showStackTrace();
 
             window.fooA = function(msg) {
@@ -77,6 +78,7 @@
 
 
             // Example: stack depth
+            console.log("limit depth of stack trace to 2");
             rbl.setMaxStackDepth(2);
 
             window.recursiveFoo = function(n) {
@@ -94,6 +96,7 @@
 
 
             // Example: live division
+            console.log("try clicking the divide button")
             rbl.withStackTrace = false;
 
             var getNumerator = function() {
