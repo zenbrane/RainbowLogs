@@ -26,7 +26,8 @@ logger.error("error message");
 
 That's it.
 
-Log [level](https://github.com/zenbrane/RainbowLogs/blob/master/RainbowLogs.js#L151),
+Leave log statements in. Use them as documentation. Disable messages in production by setting log level to NONE.
+Log [level](https://github.com/zenbrane/RainbowLogs/blob/master/RainbowLogs.js#L179),
 [stack trace](https://github.com/zenbrane/RainbowLogs/blob/master/RainbowLogs.js#L191),
 and other options can be set with library functions.
 For further explanation, open the dev console and load
