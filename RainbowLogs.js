@@ -195,7 +195,5 @@
         this.Logger.prototype.setMaxStackDepth = function(n) {
             this.maxStackDepth = n;
         };
-
-        console.log("RainbowLogs initialized.");
     };
 })();
