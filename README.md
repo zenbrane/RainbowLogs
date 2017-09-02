@@ -6,7 +6,7 @@ Colorized logger for JS console.
 Sometimes I'm too lazy to step through the debugger, so I put in print statements.
 I don't always remember to remove them which can reveal implementation details.
 I prefer the console to be silent in production.
-This library allows one to configure the log level for a particular environment.
+This library allows you to configure the log level for a particular environment.
 It also adds other niceties such as colorization and stack tracing.
 
 #### How To
